@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  font-family: "Pixelify Sans", sans-serif;
+  font-weight: 900;
+  font-size: 30px;
+}
+
+#cenario {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-image: url(/img//backgraund.gif); /*BACKGRAUND IMG*/
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#menu {
+  width: 80vw;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+
+#nave {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-image: url(/img/nav-unscreen.gif); /*BACKGRAUND IMG*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  bottom: 0;
+}
+
+#titulo {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background-image: url(/img/logo.png); /*BACKGRAUND IMG*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.transparente {
+  display: none;
+}
+
+#iniciar {
+  position: absolute;
+  color: blueviolet;
+  background-color: #fff;
+  padding: 0.2rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: piscar 1s infinite;
+}
+
+@keyframes piscar {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.text-animation {
+  position: absolute;
+  top: 45%;
+  left: 22%;
+  transform: translate(-50%, -50%);
+}
+
+.text-animation p.line {
+  font-size: 0.6rem;
+  margin: 10px 0;
+  opacity: 0;
+  animation: appear 1.5s ease forwards;
+  color: #fff;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-animation p.line:nth-child(1) {
+  animation-delay: 0.5s;
+}
+.text-animation p.line:nth-child(2) {
+  animation-delay: 2s;
+}
+.text-animation p.line:nth-child(3) {
+  animation-delay: 3.5s;
+}
+.text-animation p.line:nth-child(4) {
+  animation-delay: 5s;
+}
+.text-animation p.line:nth-child(5) {
+  animation-delay: 6.5s;
+}
+.text-animation p.line:nth-child(6) {
+  animation-delay: 8s;
+}
+.text-animation p.line:nth-child(7) {
+  animation-delay: 9.5s;
+}
+
+@keyframes animarCenario {
+  from {
+    background-position-y: 100%;
+  }
+  to {
+    background-position-y: 0%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .text-animation {
+    display: none;
+  }
+
+  .vida {
+    font-size: 17px;
+  }
+
+  #pontos {
+    font-size: 17px;
+  }
+
+  #cenario {
+    animation: animarCenarioMobile 10s infinite linear;
+  }
+
+  #titulo {
+    width: 10rem;
+    height: 10rem;
+    margin-top: 3rem;
+  }
+
+  #iniciar {
+    margin-top: 3rem;
+  }
+}

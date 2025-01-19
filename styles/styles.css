@@ -18,7 +18,7 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-  background-image: url(/img//backgraund.gif); /*BACKGRAUND IMG*/
+/*   background-image: url(/img//backgraund.gif); /*BACKGRAUND IMG*/ */
   background-position: center;
   background-repeat: repeat;
   background-size: cover;

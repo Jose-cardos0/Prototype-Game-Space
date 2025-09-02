@@ -365,9 +365,154 @@ const gameOver = () => {
   document.head.appendChild(styleElement);
 };
 
-//controle nave celular
+//controle nave celular - Sistema melhorado
+let controlesMobile = {
+  esquerda: false,
+  direita: false,
+  disparo: false,
+};
+
+// Função para detectar se é dispositivo móvel
+const isMobile = () => {
+  return window.innerWidth <= 425;
+};
+
+// Controles de movimento
+const iniciarMovimentoEsquerda = () => {
+  if (isMobile()) {
+    controlesMobile.esquerda = true;
+    direcaoHorizontal = -1;
+  }
+};
+
+const pararMovimentoEsquerda = () => {
+  if (isMobile()) {
+    controlesMobile.esquerda = false;
+    if (!controlesMobile.direita) {
+      direcaoHorizontal = 0;
+    }
+  }
+};
+
+const iniciarMovimentoDireita = () => {
+  if (isMobile()) {
+    controlesMobile.direita = true;
+    direcaoHorizontal = 1;
+  }
+};
+
+const pararMovimentoDireita = () => {
+  if (isMobile()) {
+    controlesMobile.direita = false;
+    if (!controlesMobile.esquerda) {
+      direcaoHorizontal = 0;
+    }
+  }
+};
+
+// Controle de disparo
+const iniciarDisparo = () => {
+  if (isMobile()) {
+    controlesMobile.disparo = true;
+    estaAtirando = true;
+  }
+};
+
+const pararDisparo = () => {
+  if (isMobile()) {
+    controlesMobile.disparo = false;
+    estaAtirando = false;
+  }
+};
+
+// Event listeners para controles móveis
+const setupControlesMobile = () => {
+  const btnEsquerda = document.getElementById("btn-esquerda");
+  const btnDireita = document.getElementById("btn-direita");
+  const btnDisparo = document.getElementById("btn-disparo");
+
+  // Prevenir zoom e scroll em dispositivos móveis
+  document.addEventListener(
+    "touchstart",
+    (e) => {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
+  document.addEventListener(
+    "touchmove",
+    (e) => {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
+  if (btnEsquerda) {
+    btnEsquerda.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      iniciarMovimentoEsquerda();
+    });
+    btnEsquerda.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      pararMovimentoEsquerda();
+    });
+    btnEsquerda.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      iniciarMovimentoEsquerda();
+    });
+    btnEsquerda.addEventListener("mouseup", (e) => {
+      e.preventDefault();
+      pararMovimentoEsquerda();
+    });
+  }
+
+  if (btnDireita) {
+    btnDireita.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      iniciarMovimentoDireita();
+    });
+    btnDireita.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      pararMovimentoDireita();
+    });
+    btnDireita.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      iniciarMovimentoDireita();
+    });
+    btnDireita.addEventListener("mouseup", (e) => {
+      e.preventDefault();
+      pararMovimentoDireita();
+    });
+  }
+
+  if (btnDisparo) {
+    btnDisparo.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      iniciarDisparo();
+    });
+    btnDisparo.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      pararDisparo();
+    });
+    btnDisparo.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      iniciarDisparo();
+    });
+    btnDisparo.addEventListener("mouseup", (e) => {
+      e.preventDefault();
+      pararDisparo();
+    });
+  }
+};
+
+// Controle de toque na tela (sistema antigo melhorado)
 const controleNaveToque = (evento) => {
-  if (evento.targetTouches.length === 1) {
+  if (evento.targetTouches.length === 1 && !isMobile()) {
     const toque = evento.targetTouches[0];
     const centroX = window.innerWidth / 2;
     direcaoHorizontal =
@@ -376,7 +521,9 @@ const controleNaveToque = (evento) => {
 };
 
 const dispararToque = () => {
-  atirar();
+  if (!isMobile()) {
+    atirar();
+  }
 };
 
 botaoIniciar.addEventListener("touchstart", () => {
@@ -390,6 +537,10 @@ const iniciarJogo = () => {
   document.addEventListener("touchstart", controleNaveToque);
   document.addEventListener("touchmove", controleNaveToque);
   document.addEventListener("touchend", dispararToque);
+
+  // Configurar controles móveis
+  setupControlesMobile();
+
   checaColisao = setInterval(colisao, 10);
   checaMoveNave = setInterval(moveNave, 50);
   checaMoveTiros = setInterval(moveTiros, 50);

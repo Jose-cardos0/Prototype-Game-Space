@@ -18,7 +18,7 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-  background-image: url(/img//backgraund.gif); 
+  background-image: url(/img//backgraund.gif);
   background-position: center;
   background-repeat: repeat;
   background-size: cover;
@@ -48,7 +48,7 @@
   position: absolute;
   width: 500px;
   height: 500px;
-/*   background-image: url(/img/logo.png);  */
+  /*   background-image: url(/img/logo.png);  */
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -141,6 +141,74 @@
   }
 }
 
+@keyframes animarCenarioMobile {
+  from {
+    background-position-y: 100%;
+  }
+  to {
+    background-position-y: 0%;
+  }
+}
+
+/* Controles Móveis */
+.controles-mobile {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.controle-esquerda,
+.controle-direita,
+.controle-disparo {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 3px solid #333;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  transition: all 0.1s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.controle-esquerda:active,
+.controle-direita:active,
+.controle-disparo:active {
+  transform: scale(0.95);
+  background: rgba(200, 200, 200, 0.9);
+}
+
+.controle-disparo {
+  background: rgba(255, 100, 100, 0.8);
+  border-color: #ff4444;
+  color: white;
+}
+
+.controle-disparo:active {
+  background: rgba(255, 50, 50, 0.9);
+}
+
+/* Esconder controles em desktop */
+@media screen and (min-width: 426px) {
+  .controles-mobile {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .text-animation {
     display: none;
@@ -166,5 +234,20 @@
 
   #iniciar {
     margin-top: 3rem;
+  }
+
+  /* Ajustar controles para telas muito pequenas */
+  .controle-esquerda,
+  .controle-direita,
+  .controle-disparo {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  /* Melhorar espaçamento dos controles em mobile */
+  .controles-mobile {
+    bottom: 10px;
+    padding: 0 15px;
   }
 }
